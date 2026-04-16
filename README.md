@@ -4,19 +4,46 @@ A machine learning pipeline to detect and predict the risk of cardiovascular dis
 
 ---
 
+##  App Preview
+
+> Interactive web dashboard built on the **Kaggle Cardiovascular Disease Dataset** — 70,000 patient records analyzed by 5 ML algorithms to deliver fast, accurate CVD risk detection.
+
+### CVD — AI-Powered Heart Health Assessment
+![CVD Detection Dashboard](assets/screenshots/Screenshot%202026-04-16%20090552.png)
+
+### Patient Health Assessment Form
+![Patient Health Assessment](assets/screenshots/Screenshot%202026-04-16%20090618.png)
+
+---
+
 ##  Problem Statement
 
 Cardiovascular disease is the leading cause of death globally. Early detection using patient data (age, blood pressure, cholesterol, etc.) can save lives. This project builds a robust ML classifier to predict CVD risk from clinical indicators with explainability built in.
 
 ---
 
-##  Project Structure
+## Key Stats
+
+| Metric | Value |
+|--------|-------|
+|  Patients Analyzed | 70,000 |
+|  Best Accuracy | 0.7313 |
+|  ML Models Active | 5 |
+|  Input Features | 12 |
+
+---
+
+## Project Structure
 
 ```
 CardiovascularDisease-Detection/
 │
 ├── plots/                    # Generated visualizations (feature importance, ROC, etc.)
 ├── reports/                  # Evaluation reports and metrics output
+├── assets/
+│   └── screenshots/
+│       ├── Screenshot 2026-04-16 090552.png   # Dashboard hero screenshot
+│       └── Screenshot 2026-04-16 090618.png   # Patient form screenshot
 │
 ├── preprocessing.py          # Data cleaning, encoding, normalization
 ├── feature_selection.py      # Select top predictive features
@@ -86,8 +113,6 @@ python main_fast.py
 
 ##  Requirements
 
-Key libraries used:
-
 ```
 pandas
 numpy
@@ -104,18 +129,22 @@ jupyter
 
 ---
 
-##  Key Features Used
+## 🧬 Patient Input Features (12 Parameters)
 
-| Feature | Description |
-|---------|-------------|
-| Age | Patient age in years |
-| Blood Pressure | Systolic/diastolic readings |
-| Cholesterol | Total cholesterol level |
-| Max Heart Rate | Maximum heart rate achieved |
-| Chest Pain Type | Type of chest pain (categorical) |
-| Fasting Blood Sugar | Blood sugar > 120 mg/dl (boolean) |
-| ST Depression | ECG reading during exercise |
-| Target | `1` = CVD Present, `0` = No CVD |
+| # | Feature | Description |
+|---|---------|-------------|
+| 1 | Age | Years (29–65) |
+| 2 | Gender | Male / Female |
+| 3 | Height | cm (100–220) |
+| 4 | Weight | kg (30–180) |
+| 5 | Systolic BP (ap_hi) | mmHg (80–220) |
+| 6 | Diastolic BP (ap_lo) | mmHg (50–150) |
+| 7 | Cholesterol Level | Normal / Above Normal / Well Above |
+| 8 | Glucose Level | Normal / Above Normal / Well Above |
+| 9 | Smoking | Yes / No |
+| 10 | Alcohol Consumption | Yes / No |
+| 11 | Physical Activity | Yes / No |
+| 12 | Chest Discomfort / Shortness of Breath | Yes / No |
 
 ---
 
@@ -129,7 +158,7 @@ jupyter
 | Precision | 0.7482 |
 | Recall | 0.6947 |
 
-> Run `evaluate.py` to generate updated metrics saved in `reports/`
+> Run `evaluate.py` to generate full metrics saved in `reports/`
 
 ---
 
@@ -152,15 +181,13 @@ jupyter
 
 ---
 
-##  Authors
+##  Author
 
 **Sidharth Satapathy**
 - GitHub: [@SidharthSatapathy04](https://github.com/SidharthSatapathy04)
 
-**Biswaranjan Panda**
-- GitHub: [@Biswa2006](https://github.com/Biswa2006)
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
