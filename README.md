@@ -1,247 +1,166 @@
-# Cardiovascular Disease Prediction
+#  Cardiovascular Disease (CVD) Detection
 
-This project builds and evaluates machine learning models to predict cardiovascular disease from patient health records. It includes a full preprocessing pipeline, multiple training workflows, evaluation utilities, explainability with SHAP, feature importance comparison, and a notebook for interactive analysis.
+A machine learning pipeline to detect and predict the risk of cardiovascular disease using clinical features — enabling early diagnosis and preventive care.
 
-## Project Goals
+---
 
-- Predict whether a patient is likely to have cardiovascular disease.
-- Compare multiple machine learning models on the same processed dataset.
-- Generate visual reports and saved model artifacts.
-- Add explainability using SHAP to understand feature impact.
+##  Problem Statement
 
-## Dataset
+Cardiovascular disease is the leading cause of death globally. Early detection using patient data (age, blood pressure, cholesterol, etc.) can save lives. This project builds a robust ML classifier to predict CVD risk from clinical indicators with explainability built in.
 
-The project uses `data/cardio_train.csv`.
+---
 
-- Records: `70,000`
-- Columns: `13`
-- Target column: `cardio`
-- Class distribution:
-  - `0`: 35,021
-  - `1`: 34,979
+##  Project Structure
 
-Main raw columns:
-
-`id`, `age`, `gender`, `height`, `weight`, `ap_hi`, `ap_lo`, `cholesterol`, `gluc`, `smoke`, `alco`, `active`, `cardio`
-
-## Features and Preprocessing
-
-The preprocessing pipeline is implemented in `preprocessing.py` and includes:
-
-1. Data loading with automatic delimiter fallback (`;` or `,`)
-2. Missing value handling using mean imputation for numeric columns
-3. Duplicate row removal
-4. Outlier removal on `ap_hi` and `ap_lo` using the IQR rule
-5. Feature engineering
-6. Stratified train-test split
-7. Standardization with `StandardScaler`
-8. Class balancing with `SMOTE`
-
-### Engineered Features
-
-The pipeline creates these additional features:
-
-- `bmi`
-- `pulse_pressure`
-- `mean_arterial_pressure`
-- `lifestyle_risk_score`
-- `health_risk_score`
-- `age_bmi_interaction`
-- `bp_category`
-
-Note: `age` is first converted from days to years during feature engineering.
-
-## Models
-
-Depending on the entry point, the project can train a subset or a larger set of models.
-
-### Full Pipeline (`main.py`)
-
-- Logistic Regression
-- Random Forest
-- XGBoost
-- SVM
-- Neural Network
-- Stacking Ensemble
-
-### Fast Pipeline (`main_fast.py`)
-
-- Logistic Regression
-- Random Forest
-- XGBoost
-- SVM
-
-### Ultra-Fast Pipeline (`quick_run.py`)
-
-- Logistic Regression
-- Random Forest
-- XGBoost
-
-## Evaluation
-
-The project evaluates models using:
-
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC
-
-Generated evaluation plots include:
-
-- Correlation heatmap
-- Feature distributions
-- Confusion matrices
-- Combined ROC curves
-- Model comparison chart
-- Neural network training history
-- SHAP summary plot
-- SHAP importance bar chart
-
-## Explainability
-
-Explainability is implemented in `explain.py`.
-
-- Tree models use `shap.TreeExplainer`
-- Logistic Regression uses `shap.LinearExplainer`
-- Other models fall back to `shap.KernelExplainer`
-
-The project supports:
-
-- Global SHAP summary plots
-- SHAP bar importance plots
-- Local waterfall plots for individual predictions
-- Ranked top features by mean absolute SHAP value
-
-## Current Saved Results
-
-The current `reports/model_results.csv` contains these evaluation scores:
-
-| Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
-|---|---:|---:|---:|---:|---:|
-| Logistic Regression | 0.7259 | 0.7545 | 0.6672 | 0.7082 | 0.7918 |
-| Random Forest | 0.7329 | 0.7588 | 0.6804 | 0.7174 | 0.7995 |
-| XGBoost | 0.7320 | 0.7510 | 0.6918 | 0.7201 | 0.7986 |
-
-Based on the saved report, `XGBoost` currently has the best F1-score.
-
-## Project Structure
-
-```text
-CVD_FINAL/
-|-- data/
-|   `-- cardio_train.csv
-|-- models/
-|   |-- logistic_regression.pkl
-|   |-- random_forest.pkl
-|   `-- xgboost.pkl
-|-- plots/
-|   |-- confusion_matrices.png
-|   |-- correlation_heatmap.png
-|   |-- feature_distributions.png
-|   |-- model_comparison.png
-|   |-- nn_training_history.png
-|   |-- roc_curves_combined.png
-|   |-- shap_importance.png
-|   `-- shap_summary.png
-|-- reports/
-|   |-- model_results.csv
-|   `-- project_summary.txt
-|-- CVD_project.ipynb
-|-- evaluate.py
-|-- explain.py
-|-- feature_selection.py
-|-- main.py
-|-- main_fast.py
-|-- preprocessing.py
-|-- quick_run.py
-|-- requirements.txt
-|-- train.py
-|-- utils.py
-`-- README.md
+```
+CardiovascularDisease-Detection/
+│
+├── plots/                    # Generated visualizations (feature importance, ROC, etc.)
+├── reports/                  # Evaluation reports and metrics output
+│
+├── preprocessing.py          # Data cleaning, encoding, normalization
+├── feature_selection.py      # Select top predictive features
+├── train.py                  # Model training (full run)
+├── evaluate.py               # Evaluation metrics and report generation
+├── explain.py                # Model explainability (SHAP / feature importance)
+├── utils.py                  # Helper functions shared across scripts
+│
+├── main.py                   # Full pipeline runner
+├── main_fast.py              # Faster pipeline (reduced dataset / quick training)
+├── quick_run.py              # Minimal run for testing
+│
+├── requirements.txt          # Python dependencies
+├── .gitignore
+└── README.md
 ```
 
-## Installation
+---
 
-Create a virtual environment and install dependencies:
+##  Pipeline Overview
 
+```
+Raw Data → Preprocess → Feature Selection → Train → Evaluate → Explain → Reports & Plots
+```
+
+| Step | Script | Description |
+|------|--------|-------------|
+| 1 | `preprocessing.py` | Handle nulls, encode categoricals, normalize |
+| 2 | `feature_selection.py` | Select top CVD-predictive features |
+| 3 | `train.py` | Train classifier on selected features |
+| 4 | `evaluate.py` | Accuracy, F1, AUC-ROC, confusion matrix |
+| 5 | `explain.py` | SHAP values / feature importance plots |
+| 6 | `plots/` | All saved visualizations |
+| 7 | `reports/` | Saved evaluation reports |
+
+---
+
+##  Getting Started
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/SidharthSatapathy04/CardiovascularDisease-Detection.git
+cd CardiovascularDisease-Detection
+```
+
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## How to Run
-
-### Full workflow
-
+### 3. Run the Full Pipeline
 ```bash
 python main.py
 ```
 
-### Faster workflow
-
-```bash
-python main_fast.py
-```
-
-### Quickest workflow
-
+### 4. Quick Test Run
 ```bash
 python quick_run.py
 ```
 
-### Notebook
+### 5. Fast Mode (reduced training time)
+```bash
+python main_fast.py
+```
 
-Open `CVD_project.ipynb` in Jupyter Notebook or VS Code for interactive exploration.
+---
 
-## Key Modules
+##  Requirements
 
-- `preprocessing.py`: data cleaning, feature engineering, scaling, SMOTE
-- `train.py`: model training, cross-validation, feature importance extraction
-- `evaluate.py`: metrics, ROC curves, confusion matrices, model comparison plots
-- `explain.py`: SHAP explainability utilities
-- `feature_selection.py`: chi-square ranking and feature importance comparison
-- `utils.py`: saving models, plots, reports, and helper functions
+Key libraries used:
 
-## Outputs
+```
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+shap
+xgboost
+imbalanced-learn
+jupyter
+```
 
-Running the project generates:
+> Install all via: `pip install -r requirements.txt`
 
-- Trained models in `models/`
-- Visualizations in `plots/`
-- Evaluation metrics in `reports/model_results.csv`
-- Summary report in `reports/project_summary.txt`
+---
 
-## Requirements
+##  Key Features Used
 
-Main libraries used in this project:
+| Feature | Description |
+|---------|-------------|
+| Age | Patient age in years |
+| Blood Pressure | Systolic/diastolic readings |
+| Cholesterol | Total cholesterol level |
+| Max Heart Rate | Maximum heart rate achieved |
+| Chest Pain Type | Type of chest pain (categorical) |
+| Fasting Blood Sugar | Blood sugar > 120 mg/dl (boolean) |
+| ST Depression | ECG reading during exercise |
+| Target | `1` = CVD Present, `0` = No CVD |
 
-- pandas
-- numpy
-- scikit-learn
-- xgboost
-- imbalanced-learn
-- tensorflow
-- shap
-- matplotlib
-- seaborn
-- joblib
-- scipy
+---
 
-## Notes
+##  Model Performance
 
-- `main.py` is the most comprehensive pipeline.
-- `main_fast.py` is a practical balance between speed and model coverage.
-- `quick_run.py` is best when you want results quickly.
-- The repository already contains generated models, plots, and reports from a previous run.
+| Metric | Score |
+|--------|-------|
+| Accuracy | 0.7313 |
+| F1 Score | 0.7205 |
+| AUC-ROC | 0.8001 |
+| Precision | 0.7482 |
+| Recall | 0.6947 |
 
-## Future Improvements
+> Run `evaluate.py` to generate updated metrics saved in `reports/`
 
-- Add command-line arguments for dataset path and model selection
-- Save preprocessing objects such as the scaler for deployment
-- Add unit tests for preprocessing and evaluation logic
-- Export prediction APIs for real-world use
-- Improve the generated summary report formatting and consistency
+---
 
-## Disclaimer
+##  Explainability
 
-This project is for educational and machine learning experimentation purposes. It should not be used as a substitute for professional medical diagnosis or clinical decision-making.
+`explain.py` generates SHAP-based visualizations to interpret model decisions:
+- **Feature Importance Bar Chart** — which features matter most
+- **SHAP Summary Plot** — direction and magnitude of each feature's impact
+- All plots saved to `plots/`
+
+---
+
+##  Future Improvements
+
+- [ ] Add deep learning model (MLP / TabNet)
+- [ ] Build a Streamlit web app for doctor-facing predictions
+- [ ] Integrate with real patient EHR data
+- [ ] Add cross-validation and hyperparameter tuning logs
+- [ ] Deploy as REST API (FastAPI / Flask)
+
+---
+
+##  Authors
+
+**Sidharth Satapathy**
+- GitHub: [@SidharthSatapathy04](https://github.com/SidharthSatapathy04)
+
+**Biswaranjan Panda**
+- GitHub: [@Biswa2006](https://github.com/Biswa2006)
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
