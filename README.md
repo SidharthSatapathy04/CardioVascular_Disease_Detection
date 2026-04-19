@@ -186,6 +186,15 @@ jupyter
 **Sidharth Satapathy**
 - GitHub: [@SidharthSatapathy04](https://github.com/SidharthSatapathy04)
 
+**Tumulu Mihika**
+- GitHub: [@TumuluMihika](https://github.com/TumuluMihika)
+  
+**Swagat pradhan**
+- GitHub: [@swagatprdhan2005](https://github.com/swagatprdhan2005)
+
+**Biswaranjan panda**
+- GitHub: [@Biswa2006](https://github.com/Biswa2006)
+
 ---
 
 ##  License
