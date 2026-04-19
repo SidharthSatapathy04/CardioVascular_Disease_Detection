@@ -4,6 +4,12 @@ A machine learning pipeline to detect and predict the risk of cardiovascular dis
 
 ---
 
+##  Problem Statement
+
+Cardiovascular disease is the leading cause of death globally. Early detection using patient data (age, blood pressure, cholesterol, etc.) can save lives. This project builds a robust ML classifier to predict CVD risk from clinical indicators with explainability built in.
+
+---
+
 ##  App Preview
 
 > Interactive web dashboard built on the **Kaggle Cardiovascular Disease Dataset** — 70,000 patient records analyzed by 5 ML algorithms to deliver fast, accurate CVD risk detection.
@@ -13,12 +19,6 @@ A machine learning pipeline to detect and predict the risk of cardiovascular dis
 
 ### Patient Health Assessment Form
 ![Patient Health Assessment](assets/screenshots/Screenshot%202026-04-16%20090618.png)
-
----
-
-##  Problem Statement
-
-Cardiovascular disease is the leading cause of death globally. Early detection using patient data (age, blood pressure, cholesterol, etc.) can save lives. This project builds a robust ML classifier to predict CVD risk from clinical indicators with explainability built in.
 
 ---
 
